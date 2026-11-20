@@ -1,5 +1,7 @@
 import pytest
+
 from src.calculadora import dividir
+
 
 def test_dividir_numeros_validos():
     assert dividir(10, 2) == 5.0
