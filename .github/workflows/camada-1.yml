@@ -1,0 +1,28 @@
+name: Camada 1 - Qualidade Deterministica
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint-e-testes:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 1. Baixar o código do PR
+        uses: actions/checkout@v4
+
+      - name: 2. Configurar uv e Python
+        uses: astral-sh/setup-uv@v4
+        with:
+          enabled-cache: true
+
+      - name: 3. Instalar dependencias do lockfile
+        run: uv sync --locked
+
+      - name: Rodar Linter (Ruff)
+        run: uv run ruff check . 
+
+      - name: Rodar Testes Unitarios (Pytest) 
+        run: uv run pytest
+
